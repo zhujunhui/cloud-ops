@@ -1,0 +1,4 @@
+host,usename,password,enable,vendor
+192.168.25.253,cloud,ITTG@cloud_2010,SSCC!ypt-151,huawei
+192.168.25.229,cloud,ITTG@cloud_2010,SSCC!ypt-151,CISCO
+192.168.25.228,cloud,ITTG@cloud_2010,SSCC!ypt-151,juniper

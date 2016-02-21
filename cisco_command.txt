@@ -1,0 +1,4 @@
+terminal length 0
+show clock
+show runn
+terminal length 45
