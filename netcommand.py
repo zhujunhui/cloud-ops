@@ -106,7 +106,7 @@ def dotelnet(host, usr, passwd, ensu, vendor='cisco'):
         tn.write('\r\n')
         devname = tn.read_until('>', timeout=5)
         devname = devname[devname.rfind('\n'):]
-        devname = devname[:devname.find('@')]
+        devname = devname[devname.find('@'):]
         devname = devname.strip()
         devname = devname.replace('@', '')
         devname = devname.replace('>', '')
@@ -157,7 +157,7 @@ def devicelist(devicefilename='deviceinfo.csv'):
             print 'Enable or Super:', row.enable
             rowvendor = row.vendor
             rowvendor = rowvendor.lower()
-            print 'Vendor:', row.vendor
+            print 'Vendor:', rowvendor
 
             tc = [row.host, row.password, row.vendor]
             tcheck.append(tc)
@@ -167,11 +167,16 @@ def devicelist(devicefilename='deviceinfo.csv'):
             threads.append(t)
 
     for i in tcheck:
+        print i[0]
+        print i[1]
+        print 'i[2]=' + i[2]
         if i[1] == '' or i[2] == '':
             print i[0] + ' in device info file missing necessary parameters!!!'
             print 'Password and Vendor should not empty!!!'
             return
-        elif i[2] != 'cisco' or i[2] != 'huawei' or i[2] != 'juniper':
+        elif  i[2] == 'huawei' or i[2] == 'cisco' or i[2] == 'juniper':
+            pass
+        else:
             print i[0] + ' vendor is not right, please check device file.\n' \
                         'This script only support Cisco,Huawei and Juniper devices!!!'
             return
@@ -185,4 +190,3 @@ def devicelist(devicefilename='deviceinfo.csv'):
 
 if __name__ == '__main__':
     devicelist()
-
