@@ -12,9 +12,9 @@ def dotelnet(host, usr, passwd, ensu, vendor='cisco'):
     devname = 'devname'
     datetime = str(time.strftime("%Y-%m-%d", time.localtime()))
     # Test only. For simulation login
-    '''tn = telnetlib.Telnet('127.0.0.1', port=2000, timeout=10)
-    tn.set_debuglevel(2)
-    tn.write('\n') '''
+    #tn = telnetlib.Telnet('127.0.0.1', port=2000, timeout=10)
+    #tn.set_debuglevel(2)
+    #tn.write('\n') 
 
     # Telnet connect to host
     tn = telnetlib.Telnet(host, timeout=10)
@@ -151,25 +151,22 @@ def devicelist(devicefilename='deviceinfo.csv'):
         Row = namedtuple('Row', headings)
         for r in f_csv:
             row = Row(*r)
-            print 'Host:', row.host
-            print 'Username:', row.usename
-            print 'Password:', row.password
-            print 'Enable or Super:', row.enable
+            #print 'Host:', row.host
+            #print 'Username:', row.usename
+            #print 'Password:', row.password
+            #print 'Enable or Super:', row.enable
             rowvendor = row.vendor
             rowvendor = rowvendor.lower()
-            print 'Vendor:', rowvendor
-
+            #print 'Vendor:', rowvendor
+            # build check list
             tc = [row.host, row.password, row.vendor]
             tcheck.append(tc)
-
+            # build thread list
             t = threading.Thread(target=dotelnet, args=(row.host, row.usename,\
-                                                        row.password, row.enable, rowvendor,))
+                                        row.password, row.enable, rowvendor,))
             threads.append(t)
 
     for i in tcheck:
-        print i[0]
-        print i[1]
-        print 'i[2]=' + i[2]
         if i[1] == '' or i[2] == '':
             print i[0] + ' in device info file missing necessary parameters!!!'
             print 'Password and Vendor should not empty!!!'
@@ -178,9 +175,10 @@ def devicelist(devicefilename='deviceinfo.csv'):
             pass
         else:
             print i[0] + ' vendor is not right, please check device file.\n' \
-                        'This script only support Cisco,Huawei and Juniper devices!!!'
+                        'This script only support Cisco,Huawei and Juniper ' \
+                        'network devices!!!'
             return
-
+    # start threads
     nloops = xrange(len(threads))
     for n in nloops:
         threads[n].start()
