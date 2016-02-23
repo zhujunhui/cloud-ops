@@ -1,3 +1,4 @@
+#example for cisco command
 terminal length 0
 show clock
 show runn

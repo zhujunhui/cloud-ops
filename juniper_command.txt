@@ -1,3 +1,4 @@
+#example for Juniper command
 set cli screen-length 0
 show configuration
 set cli screen-length 30

@@ -86,7 +86,8 @@ def dotelnet(host, usr, passwd, ensu, vendor='cisco'):
     command = []
     with open(vendor + '_command.txt', 'rt') as CommandFile:
         for line in CommandFile:
-            command.append(line)
+            if line[0] != '#':
+                command.append(line)
     # execute command
     for execommand in command:
         tn.write(execommand)
