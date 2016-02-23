@@ -56,19 +56,6 @@ def dotelnet(host, usr, passwd, ensu, vendor='cisco'):
         else:
             pass
 
-        # command in telnet session
-        command = []
-        with open('huawei_command.txt', 'rt') as CommandFile:
-            for line in CommandFile:
-                command.append(line)
-        # execute command
-        for execommand in command:
-            tn.write(execommand)
-            time.sleep(1)
-        time.sleep(2)
-        tn.write('\n' + '***the_end***' + '\n')
-        tn.write('quit' + '\n')
-
     elif vendor == 'cisco':
         # discriminate command line mode
         tn.write('\r\n')
@@ -88,19 +75,6 @@ def dotelnet(host, usr, passwd, ensu, vendor='cisco'):
         devname = devname.replace('>', '')
         devname = devname.replace('#', '')
 
-        # command in telnet session
-        command = []
-        with open('cisco_command.txt', 'rt') as CommandFile:
-            for line in CommandFile:
-                command.append(line)
-        # execute command
-        for execommand in command:
-            tn.write(execommand)
-            time.sleep(1)
-        time.sleep(2)
-        tn.write('\n' + '***the_end***' + '\n')
-        tn.write('exit' + '\r\n')
-
     elif vendor == 'juniper':
         # get device name
         tn.write('\r\n')
@@ -112,18 +86,18 @@ def dotelnet(host, usr, passwd, ensu, vendor='cisco'):
         devname = devname.replace('>', '')
         # print devname
 
-        # command in telnet session
-        command = []
-        with open('juniper_command.txt', 'rt') as CommandFile:
-            for line in CommandFile:
-                command.append(line)
-        # execute command
-        for execommand in command:
-            tn.write(execommand)
-            time.sleep(1)
-        time.sleep(2)
-        tn.write('\n' + '***the_end***' + '\n')
-        tn.write('quit' + '\n')
+    # command in telnet session
+    command = []
+    with open(vendor + '_command.txt', 'rt') as CommandFile:
+        for line in CommandFile:
+            command.append(line)
+    # execute command
+    for execommand in command:
+        tn.write(execommand)
+        time.sleep(1)
+    time.sleep(2)
+    tn.write('\n' + '***the_end***' + '\n')
+    tn.write('quit' + '\n')
 
     # write to file,filename ip and device name
     outmsg = tn.read_until('***the_end***', timeout=10)
