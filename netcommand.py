@@ -53,8 +53,6 @@ def dotelnet(host, usr, passwd, ensu, vendor='cisco'):
         receiveword = tn.expect(superpassword, timeout=5)
         if receiveword[0] == 0:
             tn.write(ensu + '\n')
-        else:
-            pass
 
     elif vendor == 'cisco':
         # discriminate command line mode
@@ -65,8 +63,6 @@ def dotelnet(host, usr, passwd, ensu, vendor='cisco'):
             tn.write('enable' + '\r\n')
             tn.read_until('Password:')
             tn.write(ensu + '\r\n')
-        else:
-            pass
 
         devname = tn.read_until('#', timeout=5)
         devname = devname[devname.rfind('\n'):]
