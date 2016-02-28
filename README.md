@@ -1,4 +1,6 @@
-# network-ops
+# Cloud-ops
+Now only support network device
+
 Network operation python script.
 
 Support Cisco,Juniper,Huawei network devices.
